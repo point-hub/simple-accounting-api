@@ -1,10 +1,15 @@
 import type { IDatabase, IPipeline, IQuery } from '@point-hub/papi';
 
-import type { IChartOfAccount } from '@/modules/chart-of-accounts/interface';
-
 export interface IBalance {
   coa_number: string
   coa_name: string
+  balance: number
+}
+
+export interface IAggregatedAccount {
+  coa_number: string
+  coa_name: string
+  category: string
   balance: number
 }
 
@@ -121,12 +126,12 @@ export class RetrieveManyRepository implements IRetrieveManyRepository {
 
     const response = await this.database
       .collection('chart_of_accounts')
-      .aggregate<IRetrieveManyOutput>(pipeline, query, this.options);
+      .aggregate<IAggregatedAccount>(pipeline, query, this.options);
 
-    return this.buildProfitLoss(response.data as IChartOfAccount[]);
+    return this.buildProfitLoss(response.data as IAggregatedAccount[]);
   }
 
-  buildProfitLoss(data: IChartOfAccount[]): IRetrieveManyOutput {
+  buildProfitLoss(data: IAggregatedAccount[]): IRetrieveManyOutput {
     const result: IRetrieveManyOutput = {
       operating_incomes: [],
       non_operating_incomes: [],

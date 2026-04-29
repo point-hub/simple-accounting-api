@@ -9,7 +9,6 @@
       "@/*": ["./src/*"]
     },
     "composite": true,
-    "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     // Enable latest features
