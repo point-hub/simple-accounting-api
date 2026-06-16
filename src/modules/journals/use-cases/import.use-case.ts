@@ -55,6 +55,7 @@ export interface IDeps {
   authorizationService: IAuthorizationService
   codeGeneratorService: ICodeGeneratorService
   uniqueValidationService: IUniqueValidationService
+  validateDateFormat: (value: string) => boolean
 }
 
 export interface ISuccessData {
@@ -113,6 +114,13 @@ export class ImportUseCase extends BaseUseCase<IInput, IDeps, ISuccessData> {
           return this.fail({
             code: 422,
             message: `Import failed: required field "date" is empty at row ${rowCount}`,
+          });
+        }
+
+        if (!this.deps.validateDateFormat(String(row.date))) {
+          return this.fail({
+            code: 422,
+            message: `Import failed: invalid date format at row ${rowCount}. Expected yyyy-MM-dd or yyyy-MM-dd HH:mm (ex: 2025-12-31 23:59)`,
           });
         }
 

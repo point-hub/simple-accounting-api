@@ -6,6 +6,7 @@ import { AblyService } from '@/modules/ably/services/ably.service';
 import { AuditLogService } from '@/modules/audit-logs/services/audit-log.service';
 import { RetrieveManyRepository } from '@/modules/chart-of-accounts/repositories/retrieve-many.repository';
 import { CodeGeneratorService } from '@/modules/counters/services/code-generator.service';
+import { validateDateFormat } from '@/utils/validate-date-format';
 
 import { CreateManyRepository } from '../repositories/create-many.repository';
 import { DeleteManyRepository } from '../repositories/delete-many.repository';
@@ -36,6 +37,7 @@ export const importController: IController = async (controllerInput: IController
       authorizationService: AuthorizationService,
       codeGeneratorService,
       uniqueValidationService,
+      validateDateFormat,
     });
 
     // Execute business logic
