@@ -1,8 +1,8 @@
 import { BaseUseCase, type IUseCaseOutputFailed, type IUseCaseOutputSuccess } from '@point-hub/papi';
 import { parse } from 'csv-parse';
 import fs from 'fs';
-import fsPromises from 'fs/promises';
 
+// import fsPromises from 'fs/promises';
 import type { IAuthorizationService } from '@/modules/_shared/services/authorization.service';
 import type { IUniqueValidationService } from '@/modules/_shared/services/unique-validation.service';
 import type { IUserAgent } from '@/modules/_shared/types/user-agent.type';
@@ -120,7 +120,7 @@ export class ImportUseCase extends BaseUseCase<IInput, IDeps, ISuccessData> {
         if (!this.deps.validateDateFormat(String(row.date))) {
           return this.fail({
             code: 422,
-            message: `Import failed: invalid date format at row ${rowCount}. Expected yyyy-MM-dd or yyyy-MM-dd HH:mm (ex: 2025-12-31 23:59)`,
+            message: `Import failed: invalid date format at row ${rowCount}. Expected yyyy-MM-dd HH:mm:ss (ex: 2025-12-31 23:59:00)`,
           });
         }
 
@@ -263,16 +263,20 @@ export class ImportUseCase extends BaseUseCase<IInput, IDeps, ISuccessData> {
         code: 500,
         message: 'Internal server error',
       });
-
     } finally {
-      // cleanup uploaded file
-      if (filePath) {
-        try {
-          await fsPromises.unlink(filePath);
-        } catch (err) {
-          console.error('Failed to delete file:', err);
-        }
-      }
+      /**
+       * Cleanup: Delete the uploaded file after processing
+       * Uncomment the following code if you want to delete the file after processing
+       * Make sure to handle errors appropriately when deleting the file
+       */
+
+      // if (filePath) {
+      //   try {
+      //     await fsPromises.unlink(filePath);
+      //   } catch (err) {
+      //     console.error('Failed to delete file:', err);
+      //   }
+      // }
     }
   }
 }
