@@ -13,69 +13,33 @@ import { collectionName } from './entity';
 export const schema: ISchema[] = [
   {
     collection: collectionName,
-    unique: [['code'], ['name'], ['composite_unique_1', 'composite_unique_2']],
-    uniqueIfExists: [['optional_unique'], ['optional_composite_unique_1', 'optional_composite_unique_2'], ['xxx_composite_unique_1', 'xxx_composite_unique_2']],
+    unique: [],
+    uniqueIfExists: [],
     indexes: [],
     schema: {
       bsonType: 'object',
-      required: ['code', 'name', 'gender', 'composite_unique_1', 'composite_unique_2'],
+      required: ['type', 'category', 'number', 'name'],
       // additionalProperties: false,
       properties: {
         _id: {
           bsonType: 'objectId',
           description: 'Unique ID for the document.',
         },
-        code: {
+        type: {
           bsonType: 'string',
-          description: 'The code of the chart of account entity.',
+          description: 'The type of the chart of account entity.',
+        },
+        category: {
+          bsonType: 'string',
+          description: 'The category of the chart of account entity.',
+        },
+        number: {
+          bsonType: 'string',
+          description: 'The number of the chart of account entity.',
         },
         name: {
           bsonType: 'string',
           description: 'The name of the chart of account entity.',
-        },
-        composite_unique_1: {
-          bsonType: 'string',
-          description: 'The composite_unique_1 of the chart of account entity.',
-        },
-        composite_unique_2: {
-          bsonType: 'string',
-          description: 'The composite_unique_2 of the chart of account entity.',
-        },
-        optional_unique: {
-          bsonType: 'string',
-          description: 'The optional_unique of the chart of account entity.',
-        },
-        optional_composite_unique_1: {
-          bsonType: 'string',
-          description: 'The optional_composite_unique_1 of the chart of account entity.',
-        },
-        optional_composite_unique_2: {
-          bsonType: 'string',
-          description: 'The optional_composite_unique_2 of the chart of account entity.',
-        },
-        xxx_composite_unique_1: {
-          bsonType: 'string',
-          description: 'The xxx_composite_unique_1 of the chart of account entity.',
-        },
-        xxx_composite_unique_2: {
-          bsonType: 'string',
-          description: 'The xxx_composite_unique_2 of the chart of account entity.',
-        },
-        age: {
-          bsonType: 'number',
-          description: 'The age value associated with the chart of account entity.',
-        },
-        gender: {
-          bsonType: 'string',
-          description: 'The gender associated with the chart of account entity.',
-        },
-        notes: {
-          bsonType: 'string',
-          description: 'Additional notes or information about the chart of account entity.',
-        },
-        is_archived: {
-          bsonType: 'bool',
-          description: 'Indicates whether the record is archived.',
         },
         created_at: {
           bsonType: 'date',

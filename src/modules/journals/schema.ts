@@ -13,69 +13,41 @@ import { collectionName } from './entity';
 export const schema: ISchema[] = [
   {
     collection: collectionName,
-    unique: [['code'], ['name'], ['composite_unique_1', 'composite_unique_2']],
-    uniqueIfExists: [['optional_unique'], ['optional_composite_unique_1', 'optional_composite_unique_2'], ['xxx_composite_unique_1', 'xxx_composite_unique_2']],
+    unique: [],
+    uniqueIfExists: [],
     indexes: [],
     schema: {
       bsonType: 'object',
-      required: ['code', 'name', 'gender', 'composite_unique_1', 'composite_unique_2'],
+      required: ['date', 'form_number', 'coa_number', 'coa_name'],
       // additionalProperties: false,
       properties: {
         _id: {
           bsonType: 'objectId',
           description: 'Unique ID for the document.',
         },
-        code: {
+        date: {
           bsonType: 'string',
-          description: 'The code of the journal entity.',
+          description: 'The date of the journal entity.',
         },
-        name: {
+        form_number: {
           bsonType: 'string',
-          description: 'The name of the journal entity.',
+          description: 'The form_number of the journal entity.',
         },
-        composite_unique_1: {
+        coa_number: {
           bsonType: 'string',
-          description: 'The composite_unique_1 of the journal entity.',
+          description: 'The coa_number of the journal entity.',
         },
-        composite_unique_2: {
+        coa_name: {
           bsonType: 'string',
-          description: 'The composite_unique_2 of the journal entity.',
+          description: 'The coa_name of the journal entity.',
         },
-        optional_unique: {
+        debit: {
           bsonType: 'string',
-          description: 'The optional_unique of the journal entity.',
+          description: 'The debit of the journal entity.',
         },
-        optional_composite_unique_1: {
+        credit: {
           bsonType: 'string',
-          description: 'The optional_composite_unique_1 of the journal entity.',
-        },
-        optional_composite_unique_2: {
-          bsonType: 'string',
-          description: 'The optional_composite_unique_2 of the journal entity.',
-        },
-        xxx_composite_unique_1: {
-          bsonType: 'string',
-          description: 'The xxx_composite_unique_1 of the journal entity.',
-        },
-        xxx_composite_unique_2: {
-          bsonType: 'string',
-          description: 'The xxx_composite_unique_2 of the journal entity.',
-        },
-        age: {
-          bsonType: 'number',
-          description: 'The age value associated with the journal entity.',
-        },
-        gender: {
-          bsonType: 'string',
-          description: 'The gender associated with the journal entity.',
-        },
-        notes: {
-          bsonType: 'string',
-          description: 'Additional notes or information about the journal entity.',
-        },
-        is_archived: {
-          bsonType: 'bool',
-          description: 'Indicates whether the record is archived.',
+          description: 'The credit of the journal entity.',
         },
         created_at: {
           bsonType: 'date',
