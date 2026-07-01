@@ -77,6 +77,7 @@ export class ImportUseCase extends BaseUseCase<IInput, IDeps, ISuccessData> {
     let validRowCount = 0;
 
     const journalBalanceMap = new Map<string, { debit: number; credit: number }>();
+    const journalDateMap = new Map<string, string>();
 
     const coaList = await this.deps.chartOfAccountRetrieveManyRepository.raw({
       page_size: 999999999,
@@ -183,6 +184,18 @@ export class ImportUseCase extends BaseUseCase<IInput, IDeps, ISuccessData> {
         }
 
         const formNumber = journalEntity.data.form_number;
+        const journalDate = new Date(String(row.date)).getTime();
+
+        const existingDate = journalDateMap.get(formNumber);
+
+        if (!existingDate) {
+          journalDateMap.set(formNumber, String(journalDate));
+        } else if (Number(existingDate) !== journalDate) {
+          return this.fail({
+            code: 422,
+            message: `Import failed: all rows with form_number "${formNumber}" must have the same date at row ${rowCount}`,
+          });
+        }
 
         const current = journalBalanceMap.get(formNumber) || { debit: 0, credit: 0 };
 
