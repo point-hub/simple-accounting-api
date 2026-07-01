@@ -72,6 +72,60 @@ export class ImportUseCase extends BaseUseCase<IInput, IDeps, ISuccessData> {
     let rowCount = 2;
     let validRowCount = 0;
 
+    const validTypes = [
+      'Asset',
+      'Liability',
+      'Equity',
+      'Income',
+      'Expense',
+    ];
+
+    const validCategories = [
+      'Current Asset',
+      'Fixed Asset',
+      'Accumulated Depreciation',
+      'Current Liability',
+      'Long-Term Liability',
+      'Owner Equity',
+      'Dividend',
+      'Retained Earning',
+      'Net Income',
+      'Operating Income',
+      'Non-Operating Income',
+      'Cost of Sales',
+      'Factory Overhead Cost',
+      'Operating Expense',
+      'Non-Operating Expense',
+    ];
+
+    const categoryByType: Record<string, string[]> = {
+      Asset: [
+        'Current Asset',
+        'Fixed Asset',
+        'Accumulated Depreciation',
+      ],
+      Liability: [
+        'Current Liability',
+        'Long-Term Liability',
+      ],
+      Equity: [
+        'Owner Equity',
+        'Dividend',
+        'Retained Earning',
+        'Net Income',
+      ],
+      Income: [
+        'Operating Income',
+        'Non-Operating Income',
+      ],
+      Expense: [
+        'Cost of Sales',
+        'Factory Overhead Cost',
+        'Operating Expense',
+        'Non-Operating Expense',
+      ],
+    };
+
     try {
       /**
        * Validate data
@@ -125,6 +179,27 @@ export class ImportUseCase extends BaseUseCase<IInput, IDeps, ISuccessData> {
           return this.fail({
             code: 422,
             message: `Import failed: duplicate field "name" at row ${rowCount}`,
+          });
+        }
+
+        if (!validTypes.includes(row.type)) {
+          return this.fail({
+            code: 422,
+            message: `Import failed: invalid type "${row.type}" at row ${rowCount}`,
+          });
+        }
+
+        if (!validCategories.includes(row.category)) {
+          return this.fail({
+            code: 422,
+            message: `Import failed: invalid category "${row.category}" at row ${rowCount}`,
+          });
+        }
+
+        if (!categoryByType[row.type].includes(row.category)) {
+          return this.fail({
+            code: 422,
+            message: `Import failed: category "${row.category}" does not belong to type "${row.type}" at row ${rowCount}`,
           });
         }
 
