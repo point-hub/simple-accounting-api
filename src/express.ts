@@ -12,11 +12,10 @@ declare module 'express-serve-static-core' {
 }
 
 export const makeController = (makeControllerInput: IMakeControllerInput) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response) => {
     await makeControllerInput.controller({
       req,
       res,
-      next,
       dbConnection: makeControllerInput.dbConnection,
     });
   };
@@ -37,7 +36,6 @@ export const makeMiddleware = (makeMiddlewareInput: IMakeMiddlewareInput) => {
     await middleware({
       req,
       res,
-      next,
       dbConnection,
     });
 
