@@ -5,6 +5,7 @@ import { UniqueValidationService } from '@/modules/_shared/services/unique-valid
 import { AblyService } from '@/modules/ably/services/ably.service';
 import { AuditLogService } from '@/modules/audit-logs/services/audit-log.service';
 import { CodeGeneratorService } from '@/modules/counters/services/code-generator.service';
+import { DeleteManyRepository as JournalDeleteManyRepository } from '@/modules/journals/repositories/delete-many.repository';
 
 import { CreateManyRepository } from '../repositories/create-many.repository';
 import { DeleteManyRepository } from '../repositories/delete-many.repository';
@@ -20,6 +21,7 @@ export const importController: IController = async (controllerInput: IController
     // Initialize repositories and utilities
     const createManyRepository = new CreateManyRepository(controllerInput.dbConnection, { session });
     const deleteManyRepository = new DeleteManyRepository(controllerInput.dbConnection, { session });
+    const journalDeleteManyRepository = new JournalDeleteManyRepository(controllerInput.dbConnection, { session });
     const auditLogService = new AuditLogService(controllerInput.dbConnection, { session });
     const codeGeneratorService = new CodeGeneratorService(controllerInput.dbConnection, { session });
     const uniqueValidationService = new UniqueValidationService(controllerInput.dbConnection, { session });
@@ -28,6 +30,7 @@ export const importController: IController = async (controllerInput: IController
     const importUseCase = new ImportUseCase({
       createManyRepository,
       deleteManyRepository,
+      journalDeleteManyRepository,
       ablyService: AblyService,
       auditLogService,
       authorizationService: AuthorizationService,

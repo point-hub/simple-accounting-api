@@ -6,7 +6,7 @@
       "name": "@point-hub/papi-starter",
       "dependencies": {
         "@point-hub/express-utils": "0.2.12",
-        "@point-hub/papi": "^0.6.5",
+        "@point-hub/papi": "^0.6.6",
         "ably": "^2.21.0",
         "compression": "^1.8.1",
         "cookie-parser": "^1.4.7",
@@ -109,7 +109,7 @@
 
     "@point-hub/express-utils": ["@point-hub/express-utils@0.2.12", "", { "dependencies": { "handlebars": "^4.7.8", "juice": "^11.0.3", "uuid": "^13.0.0" } }, "sha512-2WVUr9EI+VWbx33TzjFd4KwyKHo8PCQy599LMWQZ4W+vPnZcdxWWM6S6LBSNhI4xNWd/iBYEefxJwR0U7koYpQ=="],
 
-    "@point-hub/papi": ["@point-hub/papi@0.6.5", "", { "dependencies": { "@point-hub/express-cli": "^0.2.2", "@point-hub/express-error-handler": "^0.2.2", "@point-hub/express-factory": "^1.1.4", "@point-hub/express-utils": "^0.2.12", "date-fns": "^4.4.0", "shelljs": "^0.10.0" }, "peerDependencies": { "express": "^5.1.0", "mongodb": "^7.0.0" } }, "sha512-JAtP7OMwSSVOGHdg1TI/SUivEsB7DqioXq8jZVkA6Mt2XMYmL6VSKysUBtEZ4BUEJ4Loq0LFknE1xkkJyQ08FQ=="],
+    "@point-hub/papi": ["@point-hub/papi@0.6.6", "", { "dependencies": { "@point-hub/express-cli": "^0.2.2", "@point-hub/express-error-handler": "^0.2.2", "@point-hub/express-factory": "^1.1.4", "@point-hub/express-utils": "^0.2.12", "date-fns": "^4.4.0", "shelljs": "^0.10.0" }, "peerDependencies": { "express": "^5.1.0", "mongodb": "^7.0.0" } }, "sha512-Y3Uqqs3rC6CyJUGaOk4+WsSwaAcvKtKEDuGfbXPKRMnfeyjLkcltJcjL965zrXkbVWFsrBZDK+6TkN0Krz9Uvw=="],
 
     "@sindresorhus/is": ["@sindresorhus/is@4.6.0", "", {}, "sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw=="],
 

@@ -1,7 +1,6 @@
 import { BaseUseCase, type IUseCaseOutputFailed, type IUseCaseOutputSuccess } from '@point-hub/papi';
 import { parse } from 'csv-parse';
 import fs from 'fs';
-import fsPromises from 'fs/promises';
 
 import type { IAuthorizationService } from '@/modules/_shared/services/authorization.service';
 import type { IUniqueValidationService } from '@/modules/_shared/services/unique-validation.service';
@@ -9,6 +8,7 @@ import type { IUserAgent } from '@/modules/_shared/types/user-agent.type';
 import type { IAblyService } from '@/modules/ably/services/ably.service';
 import type { IAuditLogService } from '@/modules/audit-logs/services/audit-log.service';
 import type { ICodeGeneratorService } from '@/modules/counters/services/code-generator.service';
+import type { IDeleteManyRepository as IJournalDeleteManyRepository } from '@/modules/journals/repositories/delete-many.repository';
 import type { IAuthUser } from '@/modules/master/users/interface';
 
 import { ChartOfAccountEntity } from '../entity';
@@ -44,6 +44,7 @@ export interface IInput {
 export interface IDeps {
   createManyRepository: ICreateManyRepository
   deleteManyRepository: IDeleteManyRepository
+  journalDeleteManyRepository: IJournalDeleteManyRepository
   ablyService: IAblyService
   auditLogService: IAuditLogService
   authorizationService: IAuthorizationService
@@ -258,6 +259,8 @@ export class ImportUseCase extends BaseUseCase<IInput, IDeps, ISuccessData> {
         await processBatch(batch);
       }
 
+      await this.deps.journalDeleteManyRepository.handle({});
+
       return this.success({
         inserted_count: insertedCount,
       });
@@ -269,13 +272,13 @@ export class ImportUseCase extends BaseUseCase<IInput, IDeps, ISuccessData> {
       });
     } finally {
       // cleanup uploaded file
-      if (filePath) {
-        try {
-          await fsPromises.unlink(filePath);
-        } catch (err) {
-          console.error('Failed to delete file:', err);
-        }
-      }
+      // if (filePath) {
+      //   try {
+      //     await fsPromises.unlink(filePath);
+      //   } catch (err) {
+      //     console.error('Failed to delete file:', err);
+      //   }
+      // }
     }
   }
 }
